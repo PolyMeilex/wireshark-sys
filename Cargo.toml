@@ -1,0 +1,23 @@
+[package]
+name = "wireshark-sys"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "FFI Bindings for authoring Wireshark plugins"
+homepage = "https://github.com/PolyMeilex/wireshark-sys"
+documentation = "https://docs.rs/wireshark-sys"
+repository = "https://github.com/PolyMeilex/wireshark-sys"
+links = "wireshark"
+keywords = ["wireshark", "ffi"]
+authors = ["PolyMeilex <marynczak.bartlomiej@gmail.com>"]
+
+[build-dependencies]
+pkg-config = "0.3"
+bindgen = { version = "0.72.1", optional = true }
+
+[dependencies]
+glib-sys = "0.22.9"
+
+[features]
+default = []
+bindgen = ["dep:bindgen"]
