@@ -72,3 +72,26 @@ impl hf_register_info {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super as sys;
+    use std::process::Command;
+
+    // Pre 3.0 this did not exist, and we manually define it in build.rs
+    #[test]
+    fn check_that_version_is_correctly_defined() {
+        let a: u32 = sys::WIRESHARK_VERSION_MAJOR;
+        let b: u32 = sys::WIRESHARK_VERSION_MINOR;
+        let c: u32 = sys::WIRESHARK_VERSION_MICRO;
+
+        let output = Command::new("pkg-config")
+            .args(["--modversion", "wireshark"])
+            .output()
+            .unwrap()
+            .stdout;
+        let output = String::from_utf8(output).unwrap();
+
+        assert_eq!(output.trim(), format!("{a}.{b}.{c}"));
+    }
+}
